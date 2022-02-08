@@ -143,6 +143,25 @@ cleanup(void)
 	XCloseDisplay(dpy);
 }
 
+static char *
+cistrstr(const char *h, const char *n)
+
+{
+	size_t i;
+
+	if (!n[0])
+		return (char *)h;
+
+	for (; *h; ++h) {
+		for (i = 0; n[i] && tolower((unsigned char)n[i]) ==
+		            tolower((unsigned char)h[i]); ++i)
+			;
+		if (n[i] == '\0')
+			return (char *)h;
+	}
+	return NULL;
+}
+
 static void
 drawhighlights(struct item *item, int x, int y, int maxw)
 {
